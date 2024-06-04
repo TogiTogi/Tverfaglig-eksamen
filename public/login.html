@@ -20,6 +20,24 @@
     <br>
     <br>
     <h1 id="loginFeedback"></h1>
+    <form id="registerFormPublic" action="/registerPublic" method="POST">
+        <h2>registrer ny bruker</h2>
+        <label for="firstname">First name:</label>
+        <input type="text" id="regFirstname" name="firstname" title="regFirstname">
+        <br>
+        <label for="lastname">Last name:</label>
+        <input type="text" id="regLastname" name="lastname" title="regLastname">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="regPassword" name="password" title="regPassword" required>
+        <br>
+        <br>
+        <br>
+        <button id="regSubmit" type="submit">Register</button>
+    </form>
     <script src="./login.js"></script>
 </body>
 </html>

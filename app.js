@@ -4,7 +4,7 @@ const multer = require('multer');
 const upload = multer();
 const bcrypt = require("bcrypt");
 const sqlite3 = require('better-sqlite3');
-const db = sqlite3('./tverfaglig.db', { verbose: console.log });
+const db = sqlite3('./solcellespesialisten.db', { verbose: console.log });
 const session = require('express-session');
 const dotenv = require('dotenv');
 const express = require('express');
@@ -50,7 +50,17 @@ app.get('/login', (req, res) => {
 
 app.post('/register', (req, res) => {
     const reguser = req.body;
-    const user = addUser(reguser.firstname, reguser.lastname, reguser.username, reguser.email, reguser.address, reguser.password, reguser.role);
+    const user = addUser(reguser.firstname, reguser.lastname, reguser.username, reguser.email, reguser.password, reguser.role);
+    if (user) {
+        res.redirect('/app.html');
+    } else {
+        res.send(false);
+    }
+});
+
+app.post('/registerPublic', (req, res) => {
+    const reguser = req.body;
+    const user = addUserPublic(reguser.firstname, reguser.lastname, reguser.username, reguser.email, reguser.password, reguser.role);
     if (user) {
         res.redirect('/app.html');
     } else {
@@ -120,10 +130,10 @@ function updateUser(id, updatedUser) {
     return new Promise((resolve, reject) => {
         const sql = `
             UPDATE user
-            SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, idRole = ?
+            SET firstname = ?, lastname = ?, username = ?, email = ?, idRole = ?
             WHERE id = ?
         `;
-        const params = [updatedUser.firstname, updatedUser.lastname, updatedUser.username, updatedUser.email, updatedUser.address, updatedUser.idRole, id];
+        const params = [updatedUser.firstname, updatedUser.lastname, updatedUser.username, updatedUser.email, updatedUser.idRole, id];
 
         const stmt = db.prepare(sql);
         const result = stmt.run(params);
@@ -149,7 +159,7 @@ app.delete('/userDel/:id', (req, res) => {
 
 app.post('/user-add', (req, res) => {
     console.log(req.body);
-    addUser(req.body.firstname, req.body.lastname, req.body.username, req.body.email, req.body.address, req.body.password, req.body.role);
+    addUser(req.body.firstname, req.body.lastname, req.body.username, req.body.email, req.body.password, req.body.role);
     res.sendFile(path.join(__dirname, "public/app.html"));
 });
 
@@ -158,10 +168,22 @@ app.get('/logout', (req, res) => {
     res.sendFile(path.join(__dirname, "public/login.html"));
 });
 
-function addUser(firstname, lastname, username, email, address, password, idrole) {
+function addUser(firstname, lastname, username, email, password, idrole) {
     const hash = bcrypt.hashSync(password, saltRounds);
-    let sql = db.prepare("INSERT INTO user (firstname, lastname, username, email, address, password, idrole) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    const info = sql.run(firstname, lastname, username, email, address, hash, idrole);
+    let sql = db.prepare("INSERT INTO user (firstname, lastname, username, email, password, idrole) VALUES (?, ?, ?, ?, ?, ?)");
+    const info = sql.run(firstname, lastname, firstname + "." + lastname, email, hash, idrole);
+
+    sql = db.prepare('SELECT user.id AS userid, username, role.id AS role FROM user INNER JOIN role ON user.idRole = role.id WHERE user.id = ?');
+    let rows = sql.all(info.lastInsertRowid);
+    console.log("rows.length", rows.length);
+
+    return rows[0];
+}
+
+function addUserPublic(firstname, lastname, username, email, password, idrole) {
+    const hash = bcrypt.hashSync(password, saltRounds);
+    let sql = db.prepare("INSERT INTO user (firstname, lastname, username, email, password, idRole) VALUES (?, ?, ?, ?, ?, ?)");
+    const info = sql.run(firstname, lastname, firstname + "." + lastname, email, hash, 4);
 
     sql = db.prepare('SELECT user.id AS userid, username, role.id AS role FROM user INNER JOIN role ON user.idRole = role.id WHERE user.id = ?');
     let rows = sql.all(info.lastInsertRowid);

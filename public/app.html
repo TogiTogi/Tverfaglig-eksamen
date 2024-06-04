@@ -3,108 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontpage</title>
+    <title>frontpage</title>
     <link rel="stylesheet" href="./css/appstyle.css">
 </head>
 <body>
     <header>
         <h2 id="loggedInAs"></h2>
     </header>
-    <form id="registerForm" action="/register" method="POST">
-        <h2>registrer ny bruker</h2>
-        <label for="firstname">First name:</label>
-        <input type="text" id="regFirstname" name="firstname" title="regFirstname">
-        <br>
-        <label for="lastname">Last name:</label>
-        <input type="text" id="regLastname" name="lastname" title="regLastname">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="tel">tel:</label>
-        <input type="text" id="tel" name="tel" required>
-        <br>
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="regPassword" name="password" title="regPassword" required>
-        <br>
-        <label for="role">Role:</label>
-        <select id="regRoleId" name="role" title="regRoleId" required></select>
-        <br>
-        <label for="klasse">Klasse:</label>
-        <select id="regKlasseId" name="klasse" title="regKlasseId" required></select>
-        <br>
-        <br>
-        <button id="regSubmit" type="submit">Register</button>
-    </form>
     <br>
     <br>
-    <form id="editUserForm" action="/User" method ="POST">
-        <label for="editUser"> Check and edit user:</label>
-        <select id="editUserId" name="editUser" title="editUserId">
-            <option value="0">Select a user</option>
-        </select>
-        <br>
-        <label for="firstname">First name:</label>
-        <input type="text" id="editFirstname" name="firstname" title="editFirstname">
-        <br>
-        <label for="lastname">Last name:</label>
-        <input type="text" id="editLastname" name="lastname" title="editLastname">
-        <br>
-        <label for="username">Username:</label>
-        <input type="text" id="editUsername" name="username" title="editUsername">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="editEmail" name="email" title="editEmail">
-        <br>
-        <label for="tel">Tel:</label>
-        <input type="text" id="editTel" name="tel" title="editTel">
-        <br>
-        <label for="address">Address:</label>
-        <input type="address" id="editAddress" name="address" title="editAddress">
-        <br>
-        <label for="klasse">Klasse:</label>
-        <input type="number" id="editKlasse" name="klasse" title="editKlasse">
-        <br>
-        <label for="role">Rolle:</label>
-        <input type="number" id="editRole" name="role" title="editRole">
-        <br>
-        <!-- Add more input fields as needed -->
-        <button id="editUserSubmit" type="submit">Update this user</button>
-    </form>
-    <h1 id="editUserFeedback"></h1>
+    <button id="btnRedirectWorker" title="btnRedirectWorker" type="button">Workplace</button>
     <br>
     <br>
-    <form id="delUserForm" action="/User" method="POST">
-        <label for="delUser">Delete user:</label>
-        <select id="delUserId" name="delUser" title="delUserId">
-            <option value="0">Select a user</option>
-        </select>
-        <br>
-        <br>
-        <div id="delUserInfo"></div>
-        <button id="delUserSubmit" type="submit">Delete this user</button>
-    </form>
-    <h1 id="delUserFeedback"></h1>
-    <br>
-    <br>
-    <form id="GDPRtestForm">
-        <lable for="GDPRtest">Ta GDPR testen: </lable>
-        <button type="submit" id="GDPRtest">GDPR test</button>
-    </form>
-    <!--
-    <form id="form1">
-        <h1>WAZAAAAAAAAP!!</h1>
-    </form>
-    <form id="form2">
-        <img class="small-image" title="imgSoT" src="img/Sea_of_Thieves_Screenshot.png">
-    </form>
-    -->
+    <select id="selectSolcelle" title="selectSolcelle"></select>
 
-    <br>
-    <br>
     <form id="logoutForm" action='/logout' method="GET">
         <button id="btnLogut" type="submit">Log ut</button>
     </form>
