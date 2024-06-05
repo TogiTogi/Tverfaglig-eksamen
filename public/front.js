@@ -25,7 +25,7 @@ document.getElementById('btnRedirectWorker').addEventListener('click', function(
     window.location.href = './worker.html';
 });
 document.getElementById('KunnskapsbaseBrukerveiledning').addEventListener('click', function() {//window.open = åpne i ny fane
-    window.open('./img/Sea_of_Thieves_Screenshot.png');
+    window.open('./docs/Hvordan bruke kunnskapsbasesystemet.pdf');
 });
 document.getElementById('ArbeiderFormsTest').addEventListener('click', function() {
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfJv0GydyYN4r-1Q5pmlq1-sHK1z8Kwac-7_oQcoVKmvXgEyA/viewform?usp=sf_link');
