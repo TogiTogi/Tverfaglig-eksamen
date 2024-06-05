@@ -56,7 +56,7 @@ select {
     width: 50%;
 }
 
-#registerForm, #delUserForm, #editUserForm, #btnRedirectWorker, #delSolcelleForm, #editSolcelleForm{
+#registerForm, #delUserForm, #editUserForm, #btnRedirectWorker, #delSolcelleForm, #editSolcelleForm, #KunnskapsbaseBrukerveiledning, #ArbeiderFormsTest{
     display: none;
 }
 

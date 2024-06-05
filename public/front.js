@@ -21,8 +21,14 @@ async function main() {
 
 document.addEventListener('DOMContentLoaded', main);
 
-document.getElementById('btnRedirectWorker').addEventListener('click', function() {
+document.getElementById('btnRedirectWorker').addEventListener('click', function() {//window.location.href = bytt til fane
     window.location.href = './worker.html';
+});
+document.getElementById('KunnskapsbaseBrukerveiledning').addEventListener('click', function() {//window.open = åpne i ny fane
+    window.open('./img/Sea_of_Thieves_Screenshot.png');
+});
+document.getElementById('ArbeiderFormsTest').addEventListener('click', function() {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfJv0GydyYN4r-1Q5pmlq1-sHK1z8Kwac-7_oQcoVKmvXgEyA/viewform?usp=sf_link');
 });
 
 async function fetchCurrentUser() {
@@ -56,6 +62,8 @@ async function hideElementsBasedOnRole() {
     console.log(`idRole: ${idRole}`); // Log the value of idRole
     if (idRole == 1 || idRole == 2 || idRole == 3) { // Om du er en arbeider (1), (2) eller (3), kan du se dette
         document.getElementById('btnRedirectWorker').style.display = 'block';
+        document.getElementById('KunnskapsbaseBrukerveiledning').style.display = 'block';
+        document.getElementById('ArbeiderFormsTest').style.display = 'block';
     }
 }
 

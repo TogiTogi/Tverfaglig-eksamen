@@ -13,17 +13,21 @@
     </header>
     <h2>solcelle settings</h2>
     <br>
+    <button id="btnRedirectApp" title="btnRedirectApp" type="submit">Go to frontpage</button>
+    <br>
+    <br>
     <form id="registerSolcelleForm" action="/registerSolcelle" method="POST">
-        <label for="name">Name:</label>
+        <label for="registerSolcelleForm"><b>Register new solcelle</b><br><br></label>
+        <label for="name">Headline:</label>
         <input type="text" id="regName" name="name" title="regName" required>
         <br>
         <label for="description">Description:</label>
         <input type="text" id="regDescription" name="description" title="regDescription" required>
         <br>
-        <button id="regSolcelleSubmit" type="submit">Register Solcelle</button>
+        <button id="regSolcelleSubmit" type="submit">Register Solcelle-artikkel</button>
     </form>
     <br>
-    <button id="btnRedirectApp" title="btnRedirectApp" type="submit">Go to frontpage</button>
+    
     <br>
     <h1 id="delSolcelleFeedback"></h1>
     <br>
@@ -44,21 +48,24 @@
     <h1 id="editSolcelleFeedback"></h1>
     <br>    
     <form id="delSolcelleForm" action="/solcelleInfo" method="POST">
-        <label for="delSolcelle">Delete solcelle-page:</label>
+        <label for="delSolcelle">Delete solcelle-artikkel:</label>
         <select id="delSolcelle" name="delSolcelle" title="delSolcelle">
-            <option value="0">Select a solcelle-page</option>
+            <option value="0">Select a solcelle-artikkel</option>
         </select>
         <br>
         <br>
         <div id="delSolcelleInfo"></div>
-        <button id="delSolcelleSubmit" type="submit">Delete this solcelle-page</button>
+        <button id="delSolcelleSubmit" type="submit">Delete this solcelle-artikkel</button>
     </form>
     <br>
     <br>
     <br>
-    <h2>user settings</h2>
-    <label for="registerForm"><b>Register new user:</b></label>
+    <h2 id="userSettingsHeader">user settings</h2>
+    
     <form id="registerForm" action="/register" method="POST">
+        <label for="registerForm"><b>Register new user</b></label>
+        <br>
+        <br>
         <label for="firstname">First name:</label>
         <input type="text" id="regFirstname" name="firstname" title="regFirstname" required>
         <br>
@@ -80,7 +87,7 @@
     <br>
     <br>
     <form id="editUserForm" action="/User" method ="POST">
-        <label for="editUser"><b>Check and edit user:</b></label>
+        <label for="editUser"><b>Check and edit user</b></label>
         <select id="editUserId" name="editUser" title="editUserId">
             <option value="0">Select a user</option>
         </select>

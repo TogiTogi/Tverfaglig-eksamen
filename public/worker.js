@@ -62,8 +62,8 @@ async function hideElementsBasedOnRole() {
 
         document.getElementById('delSolcelleForm').style.display = 'block';
         document.getElementById('editSolcelleForm').style.display = 'block';
-    }
-
+        ocument.getElementById('userSettingsHeader').style.display = 'block';
+    }   
     if (idRole == 1 ||idRole == 2 || idRole == 3) { // Om du er Admin (1) kan du se disse
         document.getElementById('registerSolcelleForm').style.display = 'block';
     }

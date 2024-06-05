@@ -1,0 +1,6 @@
+Burde lage "reset passord" knapp.
+Burde ha en måte å se på solcelle-artikkel
+Om du redigerer en bruker som er pålogget, vil ikke endringene for den brukeren sin session trå til før den logger ut og inn igjen.
+Kan alltids sortere bedre
+
+Nevn det med å redigere passord!!!
