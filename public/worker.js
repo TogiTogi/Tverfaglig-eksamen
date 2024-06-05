@@ -56,12 +56,16 @@ async function hideElementsBasedOnRole() {
     console.log(`idRole: ${idRole}`); // Log the value of idRole
 
     if (idRole == 1) { // Om du er Admin (1) kan du se denne
-        document.getElementById('delUserForm').style.display = 'block';
-    }
-
-    if (idRole == 1) { // Om du er Admin (1) kan du se disse
+        document.getElementById('delUserForm').style.display = 'block';        
         document.getElementById('editUserForm').style.display = 'block';
         document.getElementById('registerForm').style.display = 'block';
+
+        document.getElementById('delSolcelleForm').style.display = 'block';
+        document.getElementById('editSolcelleForm').style.display = 'block';
+    }
+
+    if (idRole == 1 ||idRole == 2 || idRole == 3) { // Om du er Admin (1) kan du se disse
+        document.getElementById('registerSolcelleForm').style.display = 'block';
     }
 }
 
@@ -116,6 +120,7 @@ function displayUserInfo(userId, users, elementId) {
             '<br> Role: ' + selectedUser.idRole;
     }
 }
+
 
 function displayUserInfoEdit(userId, users) {
     let selectedUser = users.find(user => user.id == userId);
@@ -186,4 +191,121 @@ document.getElementById('delUserForm').addEventListener('submit', function(event
             }
         })
         .catch(error => console.error('Error:', error));
+});
+
+
+
+function displaySolcelleInfoEdit(solcelleId, solcelles) {
+    let selectedSolcelle = solcelles.find(solcelle => solcelle.id == solcelleId);
+    if (selectedSolcelle) {
+        document.getElementById('editName').value = selectedSolcelle.name;
+        document.getElementById('editDescription').value = selectedSolcelle.description;
+    }
+}
+
+const editSolcelleFeedback = document.getElementById('editSolcelleFeedback');
+
+document.getElementById('editSolcelleForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const id = document.getElementById('editSolcelleId').value;
+    const name = document.getElementById('editName').value;
+    const description = document.getElementById('editDescription').value;
+
+    const updatedSolcelle = {
+        name: name,
+        description: description,
+    };
+
+    fetch('/solcelleInfo/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedSolcelle),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            editSolcelleFeedback.innerText = 'Solcelle updated successfully';
+            editSolcelleFeedback.style.color = 'green';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+});
+
+
+
+fetch('/solcelleInfo')
+    .then(response => response.json())
+    .then(solcelleData => {
+        // Get the select element
+        const delSolcelleSelect = document.getElementById('delSolcelle');
+        const editSolcelleSelect = document.getElementById('editSolcelleId');
+        
+
+        // Create an option element for each solcelle
+        solcelleData.forEach(solcelle => {
+            const delOption = document.createElement('option');
+            delOption.value = solcelle.id;
+            delOption.text = solcelle.name;
+            delSolcelleSelect.appendChild(delOption);
+
+            const editOption = document.createElement('option');
+            editOption.value = solcelle.id;
+            editOption.text = solcelle.name;
+            editSolcelleSelect.appendChild(editOption);
+        });
+        delSolcelleSelect.addEventListener('change', () => {
+            displaySolcelleInfo(delSolcelleSelect.value, solcelleData, 'delSolcelleInfo');
+        });
+        editSolcelleSelect.addEventListener('change', () => {
+            displaySolcelleInfoEdit(editSolcelleSelect.value, solcelleData);
+        });
+    });
+
+function displaySolcelleInfo(solcelleId, solcelleData, elementId) {
+    let selectedSolcelle = solcelleData.find(solcelle => solcelle.id == solcelleId);
+    if (selectedSolcelle) {
+        document.getElementById(elementId).innerHTML = 
+            '<br><h3>' + selectedSolcelle.name + '</h3> <br>' +
+            selectedSolcelle.description;
+    }
+}
+
+// Get the form and select elements
+const delSolcelleForm = document.getElementById('delSolcelleForm');
+const delSolcelleSelect = document.getElementById('delSolcelle');
+const delSolcelleFeedback = document.getElementById('delSolcelleFeedback');
+
+// Add an event listener to the form's submit event
+delSolcelleForm.addEventListener('submit', event => {
+    // Prevent the form from being submitted normally
+    event.preventDefault();
+
+    // Get the selected solcelle id
+    const solcelleId = delSolcelleSelect.value;
+
+    // Send a DELETE request to the server
+    fetch('/solcelleDel/' + solcelleId, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Reload the page or do something else here
+        location.reload();
+    })
+    .then(data => {
+        if (data && data.message) {
+            alert(data.message);
+            delSolcelleFeedback.innerText = 'Solcelle-logg deleted successfully';
+            delSolcelleFeedback.style.color = 'green';
+        }
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 });

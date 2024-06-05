@@ -12,11 +12,16 @@
     </header>
     <br>
     <br>
-    <button id="btnRedirectWorker" title="btnRedirectWorker" type="button">Workplace</button>
+    <button id="btnRedirectWorker" title="btnRedirectWorker" type="button">Go to workplace</button>
     <br>
     <br>
-    <select id="selectSolcelle" title="selectSolcelle"></select>
-
+    <form id="solcelleSelectForm">
+        <label for="solcelleSelect"><b>Se vårt arbeid:</b></label>
+        <select id="solcelleSelect" title="solcelleSelect">
+            <option value="0">Select an element</option>
+        </select>
+    </form>
+    <div id="solcelleSelectInfo"></div>
     <form id="logoutForm" action='/logout' method="GET">
         <button id="btnLogut" type="submit">Log ut</button>
     </form>

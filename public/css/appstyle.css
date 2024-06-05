@@ -46,11 +46,26 @@ header {
     text-align: center;
 }
 
-#registerForm, #delUserForm, #editUserForm, #GDPRtestForm{
+select {
+    width: 50%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    border: none;
+    background: #3e3e3e;
+    color: #f5f5f5;
+    width: 50%;
+}
+
+#registerForm, #delUserForm, #editUserForm, #btnRedirectWorker, #delSolcelleForm, #editSolcelleForm{
     display: none;
 }
 
 .small-image {
     width: 50%;
     height: auto;
+}
+
+#solcelleSelectInfo {
+    text-align:center;
+    padding: 0 150px;
 }

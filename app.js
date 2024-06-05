@@ -58,6 +58,16 @@ app.post('/register', (req, res) => {
     }
 });
 
+app.post('/registerSolcelle', (req, res) => {
+    const regSolcelle = req.body;
+    const solcelle = addSolcelle(regSolcelle.name, regSolcelle.description);
+    if (solcelle) {
+        res.redirect('/app.html');
+    } else {
+        res.send(false);
+    }
+});
+
 app.post('/registerPublic', (req, res) => {
     const reguser = req.body;
     const user = addUserPublic(reguser.firstname, reguser.lastname, reguser.username, reguser.email, reguser.password, reguser.role);
@@ -190,6 +200,68 @@ function addUserPublic(firstname, lastname, username, email, password, idrole) {
     console.log("rows.length", rows.length);
 
     return rows[0];
+}
+
+function addSolcelle(name, description) {
+    let sql = db.prepare("INSERT INTO solcelle (name, description) VALUES (?, ?)");
+    const info = sql.run(name, description);
+
+    sql = db.prepare('SELECT * FROM solcelle WHERE id = ?');
+    let rows = sql.all(info.lastInsertRowid);
+    console.log("rows.length", rows.length);
+
+    return rows[0];
+}
+
+app.get('/solcelleInfo', checkLoggedIn, (req, res) => {
+    const sql = db.prepare('SELECT solcelle.id, solcelle.name, solcelle.description FROM solcelle')
+
+    let solcelleInfo = sql.all()
+    console.log(solcelleInfo)
+    res.json(solcelleInfo)    
+})
+
+app.delete('/solcelleDel/:id', (req, res) => {
+    const solcelleId = req.params.id;
+    const sql = db.prepare('DELETE FROM solcelle WHERE id = ?');
+    const result = sql.run(solcelleId);
+    if (result.changes > 0) {
+        res.redirect('/app.html');
+    } else {
+        res.status(404).json({ message: 'SolcelleInfo not found' });
+    }
+});
+
+app.put('/solcelleInfo/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedSolcelle = req.body;
+        const solcelle = await updateSolcelle(id, updatedSolcelle);
+        res.json(solcelle);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+function updateSolcelle(id, updatedSolcelle) {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            UPDATE solcelle
+            SET name = ?, description = ?
+            WHERE id = ?
+        `;
+        const params = [updatedSolcelle.name, updatedSolcelle.description, id];
+
+        const stmt = db.prepare(sql);
+        const result = stmt.run(params);
+
+        if (result.changes === 0) {
+            reject(new Error('No rows updated'));
+        } else {
+            resolve({ id: id, ...updatedSolcelle });
+        }
+    });
 }
 
 app.use(express.static(path.join(__dirname, 'public')));

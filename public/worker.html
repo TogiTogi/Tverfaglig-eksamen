@@ -7,14 +7,58 @@
     <link rel="stylesheet" href="./css/appstyle.css">
 </head>
 <body>
+    
     <header>
         <h2 id="loggedInAs"></h2>
     </header>
-
+    <h2>solcelle settings</h2>
+    <br>
+    <form id="registerSolcelleForm" action="/registerSolcelle" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="regName" name="name" title="regName" required>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="regDescription" name="description" title="regDescription" required>
+        <br>
+        <button id="regSolcelleSubmit" type="submit">Register Solcelle</button>
+    </form>
+    <br>
     <button id="btnRedirectApp" title="btnRedirectApp" type="submit">Go to frontpage</button>
-
+    <br>
+    <h1 id="delSolcelleFeedback"></h1>
+    <br>
+    <form id="editSolcelleForm" action="/solcelleInfo" method ="POST">
+        <label for="editSolcelle"><b>Check and edit solcelle:</b></label>
+        <select id="editSolcelleId" name="editSolcelle" title="editSolcelleId">
+            <option value="0">Select a solcelle</option>
+        </select>
+        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="editName" name="name" title="editName">
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="editDescription" name="description" title="editDescription">
+        <br>
+        <button id="editSolcelleSubmit" type="submit">Update this solcelle</button>
+    </form>
+    <h1 id="editSolcelleFeedback"></h1>
+    <br>    
+    <form id="delSolcelleForm" action="/solcelleInfo" method="POST">
+        <label for="delSolcelle">Delete solcelle-page:</label>
+        <select id="delSolcelle" name="delSolcelle" title="delSolcelle">
+            <option value="0">Select a solcelle-page</option>
+        </select>
+        <br>
+        <br>
+        <div id="delSolcelleInfo"></div>
+        <button id="delSolcelleSubmit" type="submit">Delete this solcelle-page</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <h2>user settings</h2>
+    <label for="registerForm"><b>Register new user:</b></label>
     <form id="registerForm" action="/register" method="POST">
-        <h2>registrer ny bruker</h2>
         <label for="firstname">First name:</label>
         <input type="text" id="regFirstname" name="firstname" title="regFirstname" required>
         <br>
